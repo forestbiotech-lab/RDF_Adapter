@@ -105,16 +105,15 @@ class RDF_Adapter:
 
         for node in self.get_classes_by_name("investigation"):
             self.nodes[node.id] = node
-            yield node.id, "investigation", {}
-                  #node.properties
+            yield node.id, "investigation", node.properties
 
         for node in self.get_classes_by_name("study"):
             self.nodes[node.id] = node
-            yield node.id, "study", {}
+            yield node.id, "study", node.properties
 
-        #for node in self.get_classes_by_name("biological_material"):
-        #    self.nodes[node.id] = node
-        #    yield node.id, "biologicalMaterial", {}
+        for node in self.get_classes_by_name("biological_material"):
+            self.nodes[node.id] = node
+            yield node.id, "biologicalMaterial", node.properties
 
         #for subj, pred, obj in self.triples:
         #    # TODO  Check if node is a data property

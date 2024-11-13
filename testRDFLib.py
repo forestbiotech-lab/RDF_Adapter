@@ -1,4 +1,4 @@
-from rdflib import Graph
+from rdflib import Graph, Literal
 
 graph = Graph()
 graph.parse("TraceRice.nt", format="nt")
@@ -23,16 +23,20 @@ WHERE {
 
 
 query2 = """
-SELECT ?subject ?pred ?obj
+SELECT ?p ?o
 WHERE {
-    ?subject <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/ppeo/PPEO.owl#investigation> .
-    <> <http://purl.org/ppeo/PPEO.owl#hasPart> <>. 
+    <http://brapi.biodata.pt/raiz/Study_TRACE-RICE:genomic_data_ITQB> ?p ?o .
 }
 """
 
 # Execute the query
-results = graph.query(query)
+results = graph.query(query2)
+
+
+def is_literal(node):
+  return isinstance(node, Literal)
 
 # Print the filtered subjects
 for row in results:
-    print(row[0])
+    print(is_literal(row[1]))
+    print(" ".join(row))
