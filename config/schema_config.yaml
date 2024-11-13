@@ -1,13 +1,12 @@
 # add your desired knowledge graph components here
 
 investigation:
-    is_a: Activity
+    is_a: activity
     represented_as: node
     preferred_id: investigation
     input_label: investigation
 
 study:
-    is_a: Study
     represented_as: node
     preferred_id: http://purl.org/ppeo/PPEO.owl#study
     input_label: study
@@ -15,6 +14,10 @@ study:
         name: str
         category: str
 
+has part:
+    is_a: association
+    represented_as: edge
+    input_label: hasPart
 #biological material:
 #    is_a: BiologicalEntity
 #    represented_as: node

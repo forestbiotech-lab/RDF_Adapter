@@ -152,11 +152,11 @@ class RDF_Adapter:
                 #ids not the nodes itself
                 edge_type = AdapterEdgeType.HAS_PART.value
                 yield (
-                    "http://purl.org/ppeo/PPEO.owl#hasPart",
+                    None,
                     i_node.id,
                     s_node.id,
                     edge_type,
-                    {"example_property": "example_value"},
+                    {},
                 )
 
     def get_classes_by_name(self, name):
