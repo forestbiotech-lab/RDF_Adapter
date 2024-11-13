@@ -1,9 +1,11 @@
+
 import random
 import string
 from enum import Enum, auto
 from itertools import chain
 from typing import Optional
 from biocypher._logger import logger
+
 
 logger.debug(f"Loading module {__name__}.")
 
@@ -12,7 +14,6 @@ class ExampleAdapterNodeType(Enum):
     """
     Define types of nodes the adapter can provide.
     """
-
     PROTEIN = auto()
     DISEASE = auto()
 
@@ -38,11 +39,11 @@ class ExampleAdapterDiseaseField(Enum):
     DESCRIPTION = "description"
 
 
-class ExampleAdapterEdgeType(Enum):
+class AdapterEdgeType(Enum):
     """
     Enum for the types of the protein adapter.
     """
-
+    OBJECT_PROPERTY = "object_property"
     PROTEIN_PROTEIN_INTERACTION = "protein_protein_interaction"
     PROTEIN_DISEASE_ASSOCIATION = "protein_disease_association"
 
@@ -65,7 +66,7 @@ class ExampleAdapterProteinDiseaseEdgeField(Enum):
     ASSOCIATION_SOURCE = "association_source"
 
 
-class ExampleAdapter:
+class RDF_Adapter:
     """
     Example BioCypher adapter. Generates nodes and edges for creating a
     knowledge graph.
@@ -79,11 +80,14 @@ class ExampleAdapter:
 
     def __init__(
         self,
+        triples,
         node_types: Optional[list] = None,
         node_fields: Optional[list] = None,
         edge_types: Optional[list] = None,
         edge_fields: Optional[list] = None,
     ):
+        self.nodes = []
+        self.triples = triples
         self._set_types_and_fields(node_types, node_fields, edge_types, edge_fields)
 
     def get_nodes(self):
@@ -94,18 +98,44 @@ class ExampleAdapter:
 
         logger.info("Generating nodes.")
 
-        self.nodes = []
+        query = """
+            SELECT ?subject
+            WHERE {
+                ?subject <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/ppeo/PPEO.owl#investigation> . 
+            }
+            """
 
-        if ExampleAdapterNodeType.PROTEIN in self.node_types:
-            [self.nodes.append(Protein(fields=self.node_fields)) for _ in range(100)]
+        # Execute the query
+        results = self.triples.query(query)
 
-        if ExampleAdapterNodeType.DISEASE in self.node_types:
-            [self.nodes.append(Disease(fields=self.node_fields)) for _ in range(100)]
+        # Print the filtered subjects
+        for row in results:
+            current_node = Node(row[0], row[0].split("/")[-1])
+            yield current_node.id, current_node.label, current_node.properties
 
-        for node in self.nodes:
-            yield (node.get_id(), node.get_label(), node.get_properties())
 
-    def get_edges(self, probability: float = 0.3):
+
+        #for subj, pred, obj in self.triples:
+        #    # TODO  Check if node is a data property
+        #    # Create IDs
+        #    # Properties
+        #    self.nodes.append(Node(subj, subj))
+        #    self.nodes.append(Node(obj, obj))
+
+        #for node in self.nodes:
+        #    yield node.get_id(), node.get_label(), node.get_properties()
+
+        #if ExampleAdapterNodeType.PROTEIN in self.node_types:
+        #    [self.nodes.append(Protein(fields=self.node_fields)) for _ in range(100)]
+        #
+        #if ExampleAdapterNodeType.DISEASE in self.node_types:
+        #    [self.nodes.append(Disease(fields=self.node_fields)) for _ in range(100)]
+        #
+        #for node in self.nodes:
+        #    yield (node.get_id(), node.get_label(), node.get_properties())
+
+
+    def get_edges(self):
         """
         Returns a generator of edge tuples for edge types specified in the
         adapter constructor.
@@ -119,40 +149,20 @@ class ExampleAdapter:
         if not self.nodes:
             raise ValueError("No nodes found. Please run get_nodes() first.")
 
-        for node in self.nodes:
-            if random.random() < probability:
-                other_node = random.choice(self.nodes)
+        for subj, pred, obj in self.triples:
+            #TODO
+            # IF SUBJ and obj are Classes
 
-                # generate random relationship id by choosing upper or lower
-                # letters and integers, length 10, and joining them
-                relationship_id = "".join(
-                    random.choice(string.ascii_letters + string.digits)
-                    for _ in range(10)
-                )
 
-                # determine type of edge from other_node type
-                if (
-                    isinstance(other_node, Protein)
-                    and ExampleAdapterEdgeType.PROTEIN_PROTEIN_INTERACTION
-                    in self.edge_types
-                ):
-                    edge_type = ExampleAdapterEdgeType.PROTEIN_PROTEIN_INTERACTION.value
-                elif (
-                    isinstance(other_node, Disease)
-                    and ExampleAdapterEdgeType.PROTEIN_DISEASE_ASSOCIATION
-                    in self.edge_types
-                ):
-                    edge_type = ExampleAdapterEdgeType.PROTEIN_DISEASE_ASSOCIATION.value
-                else:
-                    continue
-
-                yield (
-                    relationship_id,
-                    node.get_id(),
-                    other_node.get_id(),
-                    edge_type,
-                    {"example_property": "example_value"},
-                )
+            #ids not the nodes itself
+            edge_type = AdapterEdgeType.OBJECT_PROPERTY.value
+            yield (
+                pred,
+                subj,
+                pred,
+                edge_type,
+                {"example_property": "example_value"},
+            )
 
     def get_node_count(self):
         """
@@ -193,9 +203,9 @@ class Node:
     Base class for nodes.
     """
 
-    def __init__(self):
-        self.id = None
-        self.label = None
+    def __init__(self, id, label):
+        self.id = id
+        self.label = label
         self.properties = {}
 
     def get_id(self):
@@ -217,13 +227,38 @@ class Node:
         return self.properties
 
 
+
+class Investigation(Node):
+    """
+    Generates instances of proteins.
+    """
+    def __init__(self, triples):
+        self.fields = fields
+        self.id = self._generate_id()
+        self.label = "Investigation"
+        self.properties = self._generate_properties()
+
+    query = """
+    SELECT
+    WHERE {
+        ?subject <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/ppeo/PPEO.owl#investigation> . 
+    }
+    """
+
+    # Execute the query
+    #results = triples.query(query)
+
+    # Print the filtered subjects
+    #for row in results:
+    #    print(row[0])
+
+
 class Protein(Node):
     """
     Generates instances of proteins.
     """
 
-    def __init__(self, fields: Optional[list] = None):
-        self.fields = fields
+    def __init__(self):
         self.id = self._generate_id()
         self.label = "uniprot_protein"
         self.properties = self._generate_properties()

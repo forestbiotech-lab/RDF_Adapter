@@ -6,6 +6,11 @@ biocypher:
   schema_config_path: config/schema_config.yaml
   cache_directory: .cache
 
+  # ontology Config
+  head_ontology:
+    url: http://purl.org/ppeo/PPEO.owl
+    root_node: investigation
+
 neo4j:
   delimiter: '\t'
   array_delimiter: "|"

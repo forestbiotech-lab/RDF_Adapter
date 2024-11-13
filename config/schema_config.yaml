@@ -1,21 +1,45 @@
 # add your desired knowledge graph components here
 
-protein:
+investigation:
     represented_as: node
-    preferred_id: uniprot
-    input_label: uniprot_protein
+    preferred_id: investigation
+    input_label: investigation
 
-disease:
+study:
+    is_a: study
     represented_as: node
-    preferred_id: doid
-    input_label: do_disease
+    preferred_id: study
+    input_label: study
 
-protein interaction:
-    is_a: pairwise molecular interaction
-    represented_as: edge
-    input_label: protein_protein_interaction
+biological material:
+    is_a: biological material
+    represented_as: node
+    preferred_id: biologicalMaterial
+    input_label: biologicalMaterial
 
-protein to disease association:
-    is_a: association
+has part:
+    is_a: has part
     represented_as: edge
-    input_label: protein_disease_association
+    preferred_id: hasPart
+    input_label: hasPart
+
+
+#protein:
+#    represented_as: node
+#    preferred_id: uniprot
+#    input_label: uniprot_protein
+
+#disease:
+#    represented_as: node
+#    preferred_id: doid
+#    input_label: do_disease
+
+#protein interaction:
+#    is_a: pairwise molecular interaction
+#    represented_as: edge
+#    input_label: protein_protein_interaction
+
+#protein to disease association:
+#    is_a: association
+#    represented_as: edge
+#    input_label: protein_disease_association
