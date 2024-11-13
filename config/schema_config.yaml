@@ -1,27 +1,37 @@
 # add your desired knowledge graph components here
 
 investigation:
+    is_a: Activity
     represented_as: node
     preferred_id: investigation
     input_label: investigation
 
 study:
-    is_a: study
+    is_a: Study
     represented_as: node
-    preferred_id: study
+    preferred_id: http://purl.org/ppeo/PPEO.owl#study
     input_label: study
+    properties:
+        name: str
+        category: str
 
-biological material:
-    is_a: biological material
-    represented_as: node
-    preferred_id: biologicalMaterial
-    input_label: biologicalMaterial
+#biological material:
+#    is_a: BiologicalEntity
+#    represented_as: node
+#    preferred_id: biologicalMaterial
+#    input_label: biologicalMaterial
+#    properties:
+#        name: str
+#        category: str
 
-has part:
-    is_a: has part
-    represented_as: edge
-    preferred_id: hasPart
-    input_label: hasPart
+#has part:
+#    is_a: "has part"
+#    represented_as: edge
+#    preferred_id: http://purl.org/ppeo/PPEO.owl#hasPart
+#    input_label: hasPart
+#    properties:
+#        name: str
+#        category: str
 
 
 #protein:
