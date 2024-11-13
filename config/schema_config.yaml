@@ -8,24 +8,35 @@ investigation:
 
 study:
     represented_as: node
-    preferred_id: http://purl.org/ppeo/PPEO.owl#study
     input_label: study
     properties:
         name: str
         category: str
 
+biological material:
+    is_a: biological entity
+    represented_as: node
+    input_label: biologicalMaterial
+    properties:
+            name: str
+            category: str
+
+
 has part:
     is_a: association
     represented_as: edge
     input_label: hasPart
-#biological material:
-#    is_a: BiologicalEntity
-#    represented_as: node
-#    preferred_id: biologicalMaterial
-#    input_label: biologicalMaterial
-#    properties:
-#        name: str
-#        category: str
+
+part of:
+    is_a: association
+    represented_as: edge
+    input_label: partOf
+
+has biological material:
+    is_a: association
+    represented_as: edge
+    input_label: hasBiologicalMaterial
+
 
 #has part:
 #    is_a: "has part"

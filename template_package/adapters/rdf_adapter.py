@@ -1,4 +1,4 @@
-
+from rdflib import Literal
 import random
 import string
 from enum import Enum, auto
@@ -44,7 +44,11 @@ class AdapterEdgeType(Enum):
     Enum for the types of the protein adapter.
     """
     OBJECT_PROPERTY = "object_property"
-    HAS_PART = 'hasPart'
+
+    HAS_PART = "hasPart"
+    hasPart = "hasPart"
+    partOf = "partOf"
+    hasBiologicalMaterial = "hasBiologicalMaterial"
     PROTEIN_PROTEIN_INTERACTION = "protein_protein_interaction"
     PROTEIN_DISEASE_ASSOCIATION = "protein_disease_association"
 
@@ -101,11 +105,16 @@ class RDF_Adapter:
 
         for node in self.get_classes_by_name("investigation"):
             self.nodes[node.id] = node
-            yield node.id, "investigation", node.properties
+            yield node.id, "investigation", {}
+                  #node.properties
 
         for node in self.get_classes_by_name("study"):
             self.nodes[node.id] = node
-            yield node.id, "study", node.properties
+            yield node.id, "study", {}
+
+        #for node in self.get_classes_by_name("biological_material"):
+        #    self.nodes[node.id] = node
+        #    yield node.id, "biologicalMaterial", {}
 
         #for subj, pred, obj in self.triples:
         #    # TODO  Check if node is a data property
@@ -145,19 +154,46 @@ class RDF_Adapter:
             #TODO
             # IF SUBJ and obj are Classes
 
+        for node in self.nodes:
+            query_properties = f"""
+                        SELECT ?pred ?obj
+                        WHERE {{
+                            <{node}> ?pred ?obj . 
+                        }}
+                        """
+            results_prop_query = self.triples.query(query_properties)
+            for predicate, observation in results_prop_query:
+                if not self.is_literal(observation):
+                    if observation in self.nodes:
+                        edge = predicate.split("#")[-1]
+                        edge_type = AdapterEdgeType[edge].value
+                        yield (
+                            None,
+                            self.nodes[node].id,
+                            self.nodes[observation].id,
+                            edge_type,
+                            {},
+                        )
 
-        for i_node in self.get_classes_by_name("investigation"):
-            for s_node in self.get_classes_by_name("study"):
-                ##TODO get the Object Property
-                #ids not the nodes itself
-                edge_type = AdapterEdgeType.HAS_PART.value
-                yield (
-                    None,
-                    i_node.id,
-                    s_node.id,
-                    edge_type,
-                    {},
-                )
+
+
+
+        ## is observation a literal?
+            ## if not lookup node in observation
+                ## add object property
+
+        #for i_node in self.get_classes_by_name("investigation"):
+        #    for s_node in self.get_classes_by_name("study"):
+        #        ##TODO get the Object Property
+        #        #ids not the nodes itself
+        #        edge_type = AdapterEdgeType.HAS_PART.value
+        #        yield (
+        #            None,
+        #            i_node.id,
+        #            s_node.id,
+        #            edge_type,
+        #            {},
+        #        )
 
     def get_classes_by_name(self, name):
         query = f"""
@@ -171,16 +207,25 @@ class RDF_Adapter:
         results = self.triples.query(query)
 
         # Print the filtered subjects
+
         for row in results:
-            query = f"""
-            SELECT ?subject
+            properties = {}
+            subject = row[0]
+            query_properties = f"""
+            SELECT ?pred ?obj
             WHERE {{
-                ?subject <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/ppeo/PPEO.owl#{name}> . 
+                <{subject}> ?pred ?obj . 
             }}
-                        """
+            """
+            results_prop_query = self.triples.query(query_properties)
+            for property_row in results_prop_query:
+                if self.is_literal(property_row[1]):
+                    properties[property_row[0]] = property_row[1]
 
-            yield Node(row[0], row[0].split("/")[-1])
+            yield Node(row[0], row[0].split("/")[-1], properties)
 
+    def is_literal(self, observation):
+        return isinstance(observation, Literal)
 
     def get_node_count(self):
         """
@@ -223,10 +268,10 @@ class Node:
     Base class for nodes.
     """
 
-    def __init__(self, id, label):
+    def __init__(self, id, label, properties):
         self.id = id
         self.label = label
-        self.properties = {}
+        self.properties = properties
 
     def get_id(self):
         """
