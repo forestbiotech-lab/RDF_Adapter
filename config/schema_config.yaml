@@ -46,7 +46,7 @@ observation unit:
 
 
 sample:
-    is_a: material sample
+    is_a: physical entity
     preferred_id: Sample
     represented_as: node
     input_label: sample
@@ -70,7 +70,7 @@ observed variable:
         hasName: str
 
 trait:
-    is_a: attribute
+    is_a: material sample
     preferred_id: trait
     represented_as: node
     input_label: trait
