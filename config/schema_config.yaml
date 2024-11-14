@@ -6,19 +6,28 @@ investigation:
     preferred_id: investigation
     input_label: investigation
     properties:
-        name: str
+        hasName: str
         hasDescription: str
         hasIdentifier: str
+        hasMIAPPEVersion: str
 
 study:
     represented_as: node
+    preferred_id: study
     input_label: study
     properties:
-        name: str
-        category: str
+        hasName: str
+        hasDescription: str
+        hasStartDateTime: str
+        hasEndDateTime: str
+        hasIdentifier: str
+        hasCulturalPractices: str
+        hasObservationUnitDescription: str
+
 
 biological material:
     is_a: biological entity
+    preferred_id: Biological Material
     represented_as: node
     input_label: biologicalMaterial
     properties:

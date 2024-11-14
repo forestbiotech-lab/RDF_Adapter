@@ -109,8 +109,7 @@ class RDF_Adapter:
 
         for node in self.get_classes_by_name("study"):
             self.nodes[node.id] = node
-            yield node.id, "study", {}
-            #node.properties
+            yield node.id, "study", node.properties
 
         for node in self.get_classes_by_name("biological_material"):
             self.nodes[node.id] = node
