@@ -105,8 +105,7 @@ class RDF_Adapter:
 
         for node in self.get_classes_by_name("investigation"):
             self.nodes[node.id] = node
-            yield node.id, "investigation", {}
-            #node.properties
+            yield node.id, "investigation", node.properties
 
         for node in self.get_classes_by_name("study"):
             self.nodes[node.id] = node
@@ -222,7 +221,8 @@ class RDF_Adapter:
             results_prop_query = self.triples.query(query_properties)
             for property_row in results_prop_query:
                 if self.is_literal(property_row[1]):
-                    properties[property_row[0]] = property_row[1]
+                    prop_key = property_row[0].split("#")[-1]
+                    properties[prop_key] = property_row[1]
 
             yield Node(row[0], row[0].split("/")[-1], properties)
 

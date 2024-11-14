@@ -5,6 +5,10 @@ investigation:
     represented_as: node
     preferred_id: investigation
     input_label: investigation
+    properties:
+        name: str
+        hasDescription: str
+        hasIdentifier: str
 
 study:
     represented_as: node
