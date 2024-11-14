@@ -70,7 +70,7 @@ observed variable:
         hasName: str
 
 trait:
-    is_a: attribute
+    is_a: phenotypic feature
     preferred_id: trait
     represented_as: node
     input_label: trait

@@ -105,6 +105,8 @@ class RDF_Adapter:
 
         logger.info("Generating nodes.")
 
+
+        ## The class names are defined as owl terms
         for node in self.get_classes_by_name("investigation"):
             self.nodes[node.id] = node
             yield node.id, "investigation", node.properties
