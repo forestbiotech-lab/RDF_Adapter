@@ -40,7 +40,7 @@ observation unit:
     is_a: information content entity
     preferred_id: ObsUnit
     represented_as: node
-    input_label: observation_unit
+    input_label: observationUnit
     properties:
         hasInternalIdentifier: str
 
@@ -63,7 +63,7 @@ observed variable:
     is_a: study variable
     preferred_id: ObsVar
     represented_as: node
-    input_label: observed_variable
+    input_label: observedVariable
     properties:
         hasExternalIdentifier: str
         hasInternalIdentifier: str

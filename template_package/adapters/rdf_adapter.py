@@ -118,9 +118,12 @@ class RDF_Adapter:
             yield node.id, "biologicalMaterial", node.properties
 
         for n in ["observation_unit", "observation_variable", "trait", "sample"]:
+            label = n
+            if len(n.split(" ")) == 2:
+                label = n.split(" ")+n.split(" ")[1].capitalize()
             for node in self.get_classes_by_name(n):
                 self.nodes[node.id] = node
-                yield node.id, n, node.properties
+                yield node.id, label, node.properties
 
 
         #for subj, pred, obj in self.triples:
