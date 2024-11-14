@@ -82,6 +82,8 @@ has trait:
     is_a: association
     represented_as: edge
     input_label: hasTrait
+    #source: dfjhsfkjhsdjk
+    #target: hkjsdfhjsfh
 
 has part:
     is_a: association

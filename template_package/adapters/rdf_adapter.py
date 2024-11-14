@@ -123,7 +123,7 @@ class RDF_Adapter:
             self.nodes[node.id] = node
             yield node.id, "observationUnit", node.properties
 
-        for node in self.get_classes_by_name("observation_variable"):
+        for node in self.get_classes_by_name("observed_variable"):
             self.nodes[node.id] = node
             yield node.id, "observationVariable", node.properties
 
