@@ -40,13 +40,13 @@ observation unit:
     is_a: information content entity
     preferred_id: ObsUnit
     represented_as: node
-    input_label: obs_unit
+    input_label: observation_unit
     properties:
         hasInternalIdentifier: str
 
 
 sample:
-    is_a: physical entity
+    is_a: material sample
     preferred_id: Sample
     represented_as: node
     input_label: sample
@@ -63,14 +63,14 @@ observed variable:
     is_a: study variable
     preferred_id: ObsVar
     represented_as: node
-    input_label: obs_var
+    input_label: observed_variable
     properties:
         hasExternalIdentifier: str
         hasInternalIdentifier: str
         hasName: str
 
 trait:
-    is_a: material sample
+    is_a: attribute
     preferred_id: trait
     represented_as: node
     input_label: trait
