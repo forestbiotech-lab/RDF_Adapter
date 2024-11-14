@@ -105,6 +105,10 @@ derives from:
     represented_as: edge
     input_label: derivesFrom
 
+has variable:
+    is_a: association
+    represented_as: edge
+    input_label: hasVariable
 
 #has part:
 #    is_a: "has part"

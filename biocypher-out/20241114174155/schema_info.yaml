@@ -1,0 +1,123 @@
+biological material:
+  input_label: biologicalMaterial
+  is_a: biological entity
+  is_relationship: false
+  preferred_id: Biological Material
+  present_in_knowledge_graph: true
+  properties:
+    hasGenus: str
+    hasMaterialIdentifier: str
+    hasSpecies: str
+    hasTaxonIdentifier: str
+  represented_as: node
+derives from:
+  input_label: derivesFrom
+  is_a: association
+  is_relationship: true
+  preferred_id: id
+  present_in_knowledge_graph: true
+  represented_as: edge
+has biological material:
+  input_label: hasBiologicalMaterial
+  is_a: association
+  is_relationship: true
+  preferred_id: id
+  present_in_knowledge_graph: true
+  represented_as: edge
+has part:
+  input_label: hasPart
+  is_a: association
+  is_relationship: true
+  preferred_id: id
+  present_in_knowledge_graph: true
+  represented_as: edge
+has trait:
+  input_label: hasTrait
+  is_a: association
+  is_relationship: true
+  preferred_id: id
+  present_in_knowledge_graph: true
+  represented_as: edge
+has variable:
+  input_label: hasVariable
+  is_a: association
+  is_relationship: true
+  preferred_id: id
+  present_in_knowledge_graph: true
+  represented_as: edge
+investigation:
+  input_label: investigation
+  is_a: activity
+  is_relationship: false
+  preferred_id: investigation
+  present_in_knowledge_graph: true
+  properties:
+    hasDescription: str
+    hasIdentifier: str
+    hasMIAPPEVersion: str
+    hasName: str
+  represented_as: node
+is_schema_info: true
+observation unit:
+  input_label: observationUnit
+  is_a: information content entity
+  is_relationship: false
+  preferred_id: ObsUnit
+  present_in_knowledge_graph: true
+  properties:
+    hasInternalIdentifier: str
+  represented_as: node
+observed variable:
+  input_label: observedVariable
+  is_a: study variable
+  preferred_id: ObsVar
+  properties:
+    hasExternalIdentifier: str
+    hasInternalIdentifier: str
+    hasName: str
+  represented_as: node
+part of:
+  input_label: partOf
+  is_a: association
+  is_relationship: true
+  preferred_id: id
+  present_in_knowledge_graph: true
+  represented_as: edge
+sample:
+  input_label: sample
+  is_a: material sample
+  is_relationship: false
+  preferred_id: Sample
+  present_in_knowledge_graph: true
+  properties:
+    hasCollectionDate: str
+    hasDescription: str
+    hasExternalIdentifier: str
+    hasInternalIdentifier: str
+    hasPlantAnatomicalEntity: str
+    hasPlantStructureDevelopmentStage: str
+  represented_as: node
+study:
+  input_label: study
+  is_relationship: false
+  preferred_id: study
+  present_in_knowledge_graph: true
+  properties:
+    hasCulturalPractices: str
+    hasDescription: str
+    hasEndDateTime: str
+    hasIdentifier: str
+    hasName: str
+    hasObservationUnitDescription: str
+    hasStartDateTime: str
+  represented_as: node
+trait:
+  input_label: trait
+  is_a: phenotypic feature
+  is_relationship: false
+  preferred_id: trait
+  present_in_knowledge_graph: true
+  properties:
+    hasExternalIdentifier: str
+    hasName: str
+  represented_as: node
