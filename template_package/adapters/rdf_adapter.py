@@ -49,6 +49,8 @@ class AdapterEdgeType(Enum):
     hasPart = "hasPart"
     partOf = "partOf"
     hasBiologicalMaterial = "hasBiologicalMaterial"
+    derivesFrom = "derivesFrom"
+    hasTrait = "hasTrait"
     PROTEIN_PROTEIN_INTERACTION = "protein_protein_interaction"
     PROTEIN_DISEASE_ASSOCIATION = "protein_disease_association"
 
@@ -113,8 +115,13 @@ class RDF_Adapter:
 
         for node in self.get_classes_by_name("biological_material"):
             self.nodes[node.id] = node
-            yield node.id, "biologicalMaterial", {}
-            #node.properties
+            yield node.id, "biologicalMaterial", node.properties
+
+        for n in ["observation_unit", "observation_variable", "trait", "sample"]:
+            for node in self.get_classes_by_name(n):
+                self.nodes[node.id] = node
+                yield node.id, "biologicalMaterial", node.properties
+
 
         #for subj, pred, obj in self.triples:
         #    # TODO  Check if node is a data property
