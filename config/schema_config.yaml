@@ -1,7 +1,7 @@
 # add your desired knowledge graph components here
 
 investigation:
-    is_a: activity
+    is_a: technological concept
     represented_as: node
     preferred_id: investigation
     input_label: investigation
@@ -12,6 +12,7 @@ investigation:
         hasMIAPPEVersion: str
 
 study:
+    #is_a: biological concept
     represented_as: node
     preferred_id: study
     input_label: study
@@ -25,90 +26,90 @@ study:
         hasObservationUnitDescription: str
 
 
-biological material:
-    is_a: biological entity
-    preferred_id: Biological Material
-    represented_as: node
-    input_label: biologicalMaterial
-    properties:
-            hasGenus: str
-            hasSpecies: str
-            hasMaterialIdentifier: str
-            hasTaxonIdentifier: str
-
-observation unit:
-    is_a: information content entity
-    preferred_id: ObsUnit
-    represented_as: node
-    input_label: observationUnit
-    properties:
-        hasInternalIdentifier: str
-
-
-sample:
-    is_a: material sample
-    preferred_id: Sample
-    represented_as: node
-    input_label: sample
-    properties:
-        hasCollectionDate: str
-        hasDescription: str
-        hasExternalIdentifier: str
-        hasInternalIdentifier: str
-        hasPlantAnatomicalEntity: str
-        hasPlantStructureDevelopmentStage: str
-
-
-observed variable:
-    is_a: study variable
-    preferred_id: ObsVar
-    represented_as: node
-    input_label: observedVariable
-    properties:
-        hasExternalIdentifier: str
-        hasInternalIdentifier: str
-        hasName: str
-
-trait:
-    is_a: phenotypic feature
-    preferred_id: trait
-    represented_as: node
-    input_label: trait
-    properties:
-        hasExternalIdentifier: str
-        hasName: str
-
-has trait:
-    is_a: association
-    represented_as: edge
-    input_label: hasTrait
-    #source: dfjhsfkjhsdjk
-    #target: hkjsdfhjsfh
-
+#biological material:
+#    is_a: biological entity
+#    preferred_id: Biological Material
+#    represented_as: node
+#    input_label: biologicalMaterial
+#    properties:
+#            hasGenus: str
+#            hasSpecies: str
+#            hasMaterialIdentifier: str
+#            hasTaxonIdentifier: str
+#
+#observation unit:
+#    is_a: information content entity
+#    preferred_id: ObsUnit
+#    represented_as: node
+#    input_label: observationUnit
+#    properties:
+#        hasInternalIdentifier: str
+#
+#
+#sample:
+#    is_a: material sample
+#    preferred_id: Sample
+#    represented_as: node
+#    input_label: sample
+#    properties:
+#        hasCollectionDate: str
+#        hasDescription: str
+#        hasExternalIdentifier: str
+#        hasInternalIdentifier: str
+#        hasPlantAnatomicalEntity: str
+#        hasPlantStructureDevelopmentStage: str
+#
+#
+#observed variable:
+#    is_a: study variable
+#    preferred_id: ObsVar
+#    represented_as: node
+#    input_label: observedVariable
+#    properties:
+#        hasExternalIdentifier: str
+#        hasInternalIdentifier: str
+#        hasName: str
+#
+#trait:
+#    is_a: phenotypic feature
+#    preferred_id: trait
+#    represented_as: node
+#    input_label: trait
+#    properties:
+#        hasExternalIdentifier: str
+#        hasName: str
+#
+#has trait:
+#    is_a: association
+#    represented_as: edge
+#    input_label: hasTrait
+#    #source: dfjhsfkjhsdjk
+#    #target: hkjsdfhjsfh
+#
 has part:
-    is_a: association
+    is_a: entity
     represented_as: edge
     input_label: hasPart
 
 part of:
-    is_a: association
+    is_a: entity
     represented_as: edge
     input_label: partOf
 
-has biological material:
-    is_a: association
-    represented_as: edge
-    input_label: hasBiologicalMaterial
-
-derives from:
-    is_a: association
-    represented_as: edge
-    input_label: derivesFrom
-
-has variable:
-    is_a: association
-    represented_as: edge
-    input_label: hasVariable
+#has biological material:
+#    is_a: association
+#    represented_as: edge
+#    input_label: hasBiologicalMaterial
+#
+#derives from:
+#    is_a: association
+#    represented_as: edge
+#    input_label: derivesFrom
+#
+#has variable:
+#    is_a: association
+#    represented_as: edge
+#    input_label: hasVariable
 
 #has part:
 #    is_a: "has part"
