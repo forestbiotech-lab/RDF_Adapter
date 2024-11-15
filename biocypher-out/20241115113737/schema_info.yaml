@@ -1,0 +1,35 @@
+investigation:
+  input_label: investigation
+  is_a: technologicalConcept
+  is_relationship: false
+  preferred_id: investigation
+  present_in_knowledge_graph: true
+  properties:
+    hasDescription: str
+    hasIdentifier: str
+    hasMIAPPEVersion: str
+    hasName: str
+  represented_as: node
+is_schema_info: true
+part of:
+  input_label: partOf
+  is_a: entity
+  is_relationship: true
+  preferred_id: id
+  present_in_knowledge_graph: true
+  represented_as: edge
+study:
+  input_label: study
+  is_a: biologicalConcept
+  is_relationship: false
+  preferred_id: study
+  present_in_knowledge_graph: true
+  properties:
+    hasCulturalPractices: str
+    hasDescription: str
+    hasEndDateTime: str
+    hasIdentifier: str
+    hasName: str
+    hasObservationUnitDescription: str
+    hasStartDateTime: str
+  represented_as: node
