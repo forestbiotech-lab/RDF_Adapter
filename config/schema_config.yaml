@@ -1,9 +1,17 @@
 # add your desired knowledge graph components here
 
+## Documentation
+# https://biocypher.org/quickstart.html#the-schema-configuration-yaml-file
+# is_a: to define the node name as something different from the name
+
+
+
 investigation:
+    ## Must be equal to the label in the class definition of the ontological term. No camelCase is allowed.
     is_a: technological concept
     represented_as: node
     preferred_id: investigation
+    #The label given in the node parameters
     input_label: investigation
     properties:
         hasName: str

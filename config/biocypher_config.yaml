@@ -1,3 +1,7 @@
+## Documentation
+# https://biocypher.org/installation.html#biocypher-settings
+
+
 # add your settings here (overriding the defaults)
 
 biocypher:
