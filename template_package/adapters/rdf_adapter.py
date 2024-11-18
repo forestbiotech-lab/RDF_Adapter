@@ -18,14 +18,21 @@ class AdapterNodeProperties(Enum):
     hasName = "name"
     hasDescription = "description"
     hasIdentifier = "identifier"
-    hasMIAPPEVersion = "MIAPPE Version"
+    hasInternalIdentifier = "internal identifier"
+    hasExternalIdentifier = "external identifier"
+    hasMIAPPEVersion = "version of MIAPPE"
     hasAssociatedPublication = "associated publication"
     hasAbbreviation = "abbreviation"
     hasStartDateTime = "start date time"
     hasEndDateTime = "end date time"
     hasCulturalPractices = "cultural practices"
     hasObservationUnitDescription = "observation unit description"
-
+    hasGenus = "genus"
+    hasSpecies = "species"
+    hasMaterialIdentifier = "material identifier"
+    hasTaxonIdentifier = "taxon identifier"
+    hasPlantAnatomicalEntity = "plant anatomical entity"
+    hasPlantStructureDevelopmentStage = "plant structural development stage"
 
 class AdapterEdgeType(Enum):
     """

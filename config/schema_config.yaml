@@ -27,7 +27,7 @@ study:
     properties:
         name: str
         description: str
-        start date time: str
+        start date time: date
         end date time: str
         identifier: str
         cultural practices: str
@@ -39,10 +39,10 @@ biological material:
     represented_as: node
     input_label: biological material
     properties:
-        hasGenus: str
-        hasSpecies: str
-        hasMaterialIdentifier: str
-        hasTaxonIdentifier: str
+        genus: str
+        species: str
+        material identifier: str
+        taxon identifier: str
 
 observation unit:
     #is_a: information content entity
@@ -50,7 +50,7 @@ observation unit:
     represented_as: node
     input_label: observation unit
     properties:
-        hasInternalIdentifier: str
+        internal identifier: str
 
 
 sample:
@@ -61,20 +61,20 @@ sample:
     properties:
         hasCollectionDate: str
         hasDescription: str
-        hasExternalIdentifier: str
-        hasInternalIdentifier: str
-        hasPlantAnatomicalEntity: str
-        hasPlantStructureDevelopmentStage: str
+        external identifier: str
+        internal identifier: str
+        plant anatomical entity: str
+        plant structure development stage: str
 
 observed variable:
     #is_a: study variable
     preferred_id: ObsVar
     represented_as: node
-    input_label: observedVariable
+    input_label: observed variable
     properties:
-        hasExternalIdentifier: str
-        hasInternalIdentifier: str
-        hasName: str
+        external identifier: str
+        internal identifier: str
+        name: str
 
 trait:
     #is_a: phenotypic feature
@@ -82,8 +82,8 @@ trait:
     represented_as: node
     input_label: trait
     properties:
-        hasExternalIdentifier: str
-        hasName: str
+        external identifier: str
+        name: str
 
 
 #################
@@ -105,6 +105,7 @@ has part:
 
 part of:
     is_a: association
+    preferred_id: part of
     represented_as: edge
     input_label: part of
 
