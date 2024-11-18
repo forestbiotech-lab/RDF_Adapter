@@ -1,3 +1,7 @@
+## Documentation
+# https://biocypher.org/installation.html#biocypher-settings
+
+
 # add your settings here (overriding the defaults)
 
 biocypher:
@@ -5,6 +9,17 @@ biocypher:
   debug: false
   schema_config_path: config/schema_config.yaml
   cache_directory: .cache
+
+  head_ontology:
+    url: ./biocypher-ppeo.owl.ttl
+    root_node: entity
+
+#  tail_ontologies:
+#    ppeo:
+#      merge_nodes: false
+#      url: https://raw.githubusercontent.com/MIAPPE/MIAPPE-ontology/refs/heads/master/PPEO.owl
+#      head_join_node: technological concept
+#      tail_join_node: investigation
 
   # ontology Config
   #head_ontology:

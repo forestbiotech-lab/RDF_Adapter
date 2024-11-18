@@ -10,68 +10,31 @@ from biocypher._logger import logger
 logger.debug(f"Loading module {__name__}.")
 
 
-class ExampleAdapterNodeType(Enum):
-    """
-    Define types of nodes the adapter can provide.
-    """
-    PROTEIN = auto()
-    DISEASE = auto()
 
-
-class ExampleAdapterProteinField(Enum):
+class AdapterNodeProperties(Enum):
     """
-    Define possible fields the adapter can provide for proteins.
+    Enum for the node properties
     """
-
-    ID = "id"
-    SEQUENCE = "sequence"
-    DESCRIPTION = "description"
-    TAXON = "taxon"
-
-
-class ExampleAdapterDiseaseField(Enum):
-    """
-    Define possible fields the adapter can provide for diseases.
-    """
-
-    ID = "id"
-    NAME = "name"
-    DESCRIPTION = "description"
+    hasName = "name"
+    hasDescription = "description"
+    hasIdentifier = "identifier"
+    hasMIAPPEVersion = "MIAPPE Version"
+    hasAssociatedPublication = "associated publication"
+    hasAbbreviation = "abbreviation"
 
 
 class AdapterEdgeType(Enum):
     """
     Enum for the types of the protein adapter.
     """
-    OBJECT_PROPERTY = "object_property"
 
-    HAS_PART = "hasPart"
-    hasPart = "hasPart"
-    partOf = "partOf"
-    hasBiologicalMaterial = "hasBiologicalMaterial"
-    derivesFrom = "derivesFrom"
-    hasTrait = "hasTrait"
-    hasVariable = "hasVariable"
-    PROTEIN_PROTEIN_INTERACTION = "protein_protein_interaction"
-    PROTEIN_DISEASE_ASSOCIATION = "protein_disease_association"
+    hasPart = "has part"
+    partOf = "part of"
+    hasBiologicalMaterial = "has biological material"
+    derivesFrom = "derives from"
+    hasTrait = "has trait"
+    hasVariable = "has variable"
 
-
-class ExampleAdapterProteinProteinEdgeField(Enum):
-    """
-    Define possible fields the adapter can provide for protein-protein edges.
-    """
-
-    INTERACTION_TYPE = "interaction_type"
-    INTERACTION_SOURCE = "interaction_source"
-
-
-class ExampleAdapterProteinDiseaseEdgeField(Enum):
-    """
-    Define possible fields the adapter can provide for protein-disease edges.
-    """
-
-    ASSOCIATION_TYPE = "association_type"
-    ASSOCIATION_SOURCE = "association_source"
 
 
 class RDF_Adapter:
@@ -89,14 +52,10 @@ class RDF_Adapter:
     def __init__(
         self,
         triples,
-        node_types: Optional[list] = None,
-        node_fields: Optional[list] = None,
-        edge_types: Optional[list] = None,
-        edge_fields: Optional[list] = None,
     ):
         self.nodes = {}
         self.triples = triples
-        self._set_types_and_fields(node_types, node_fields, edge_types, edge_fields)
+
 
     def get_nodes(self):
         """
@@ -108,6 +67,7 @@ class RDF_Adapter:
 
 
         ## The class names are defined as owl terms
+
         for node in self.get_classes_by_name("investigation"):
             self.nodes[node.id] = node
             yield node.id, "investigation", node.properties
@@ -117,24 +77,24 @@ class RDF_Adapter:
             yield node.id, "study", node.properties
 
         for node in self.get_classes_by_name("biological_material"):
-            self.nodes[node.id] = node
-            yield node.id, "biologicalMaterial", node.properties
+           self.nodes[node.id] = node
+           yield node.id, "biological material", node.properties
 
-        for node in self.get_classes_by_name("observation_unit"):
-            self.nodes[node.id] = node
-            yield node.id, "observationUnit", node.properties
+        #for node in self.get_classes_by_name("observation_unit"):
+        #    self.nodes[node.id] = node
+        #    yield node.id, "observationUnit", node.properties
 
-        for node in self.get_classes_by_name("observed_variable"):
-            self.nodes[node.id] = node
-            yield node.id, "observedVariable", node.properties
+        #for node in self.get_classes_by_name("observed_variable"):
+        #    self.nodes[node.id] = node
+        #    yield node.id, "observedVariable", node.properties
 
-        for n in ["trait", "sample"]:
-            label = n
-            if len(n.split(" ")) == 2:
-                label = n.split(" ")+n.split(" ")[1].capitalize()
-            for node in self.get_classes_by_name(n):
-                self.nodes[node.id] = node
-                yield node.id, label, node.properties
+        #for n in ["trait", "sample"]:
+        #    label = n
+        #    if len(n.split(" ")) == 2:
+        #        label = n.split(" ")+n.split(" ")[1].capitalize()
+        #    for node in self.get_classes_by_name(n):
+        #        self.nodes[node.id] = node
+        #        yield node.id, label, node.properties
 
 
         #for subj, pred, obj in self.triples:
@@ -196,26 +156,6 @@ class RDF_Adapter:
                             {},
                         )
 
-
-
-
-        ## is observation a literal?
-            ## if not lookup node in observation
-                ## add object property
-
-        #for i_node in self.get_classes_by_name("investigation"):
-        #    for s_node in self.get_classes_by_name("study"):
-        #        ##TODO get the Object Property
-        #        #ids not the nodes itself
-        #        edge_type = AdapterEdgeType.HAS_PART.value
-        #        yield (
-        #            None,
-        #            i_node.id,
-        #            s_node.id,
-        #            edge_type,
-        #            {},
-        #        )
-
     def get_classes_by_name(self, name):
         query = f"""
             SELECT ?subject
@@ -241,8 +181,13 @@ class RDF_Adapter:
             results_prop_query = self.triples.query(query_properties)
             for property_row in results_prop_query:
                 if self.is_literal(property_row[1]):
-                    prop_key = property_row[0].split("#")[-1]
-                    properties[prop_key] = property_row[1]
+                    try:
+                        prop_key = AdapterNodeProperties[property_row[0].split("#")[-1]].value
+                        properties[prop_key] = property_row[1]
+                    finally:
+                        continue
+
+
 
             yield Node(row[0], row[0].split("/")[-1], properties)
 
@@ -255,32 +200,7 @@ class RDF_Adapter:
         """
         return len(list(self.get_nodes()))
 
-    def _set_types_and_fields(self, node_types, node_fields, edge_types, edge_fields):
-        if node_types:
-            self.node_types = node_types
-        else:
-            self.node_types = [type for type in ExampleAdapterNodeType]
 
-        if node_fields:
-            self.node_fields = node_fields
-        else:
-            self.node_fields = [
-                field
-                for field in chain(
-                    ExampleAdapterProteinField,
-                    ExampleAdapterDiseaseField,
-                )
-            ]
-
-        if edge_types:
-            self.edge_types = edge_types
-        else:
-            self.edge_types = [type for type in ExampleAdapterEdgeType]
-
-        if edge_fields:
-            self.edge_fields = edge_fields
-        else:
-            self.edge_fields = [field for field in chain()]
 
 
 

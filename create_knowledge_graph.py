@@ -26,7 +26,7 @@ bc = BioCypher()
 
 graph = Graph()
 
-graph.parse("TraceRice.nt", format="nt")
+graph.parse("MIAPPE_v1.1_TRACE-RICE.nt", format="nt")
 
 
 
@@ -45,6 +45,7 @@ graph.parse("TraceRice.nt", format="nt")
 
 # Choose protein adapter fields to include in the knowledge graph.
 # These are defined in the adapter (`adapter.py`).
+# Filteres the nodes
 #node_fields = [
     # Proteins
     #ExampleAdapterProteinField.ID,
@@ -57,17 +58,17 @@ graph.parse("TraceRice.nt", format="nt")
     #ExampleAdapterDiseaseField.DESCRIPTION,
 #]
 
-edge_types = [
-    AdapterEdgeType.OBJECT_PROPERTY
+#Filters the edges
+#edge_types = [
     #ExampleAdapterEdgeType.PROTEIN_DISEASE_ASSOCIATION,
-]
+#]
 
 # Create a protein adapter instance
 adapter = RDF_Adapter(
-    triples=graph,
+    triples=graph
     # node_types=node_types
     # node_fields=node_fields,
-    edge_types=edge_types
+    # edge_types=edge_types
     # we can leave edge fields empty, defaulting to all fields in the adapter
 )
 
