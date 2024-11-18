@@ -39,10 +39,10 @@ biological material:
     represented_as: node
     input_label: biological material
     properties:
-            hasGenus: str
-            hasSpecies: str
-            hasMaterialIdentifier: str
-            hasTaxonIdentifier: str
+        hasGenus: str
+        hasSpecies: str
+        hasMaterialIdentifier: str
+        hasTaxonIdentifier: str
 
 #observation unit:
 #    is_a: information content entity

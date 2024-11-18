@@ -68,17 +68,25 @@ class RDF_Adapter:
 
         ## The class names are defined as owl terms
 
-        for node in self.get_classes_by_name("investigation"):
-            self.nodes[node.id] = node
-            yield node.id, "investigation", node.properties
+        #for node in self.get_classes_by_name("investigation"):
+        #    self.nodes[node.id] = node
+        #    yield node.id, "investigation", node.properties
 
-        for node in self.get_classes_by_name("study"):
-            self.nodes[node.id] = node
-            yield node.id, "study", node.properties
+        #for node in self.get_classes_by_name("study"):
+        #    self.nodes[node.id] = node
+        #    yield node.id, "study", node.properties
 
-        for node in self.get_classes_by_name("biological_material"):
-           self.nodes[node.id] = node
-           yield node.id, "biological material", node.properties
+        for n in ["investigation", "study", "biological_material", "observation_unit", "observed_variable", "trait", "sample"]:
+            label = n
+            if len(n.split("_")) == 2:
+                label = n.replace("_", " ")
+            for node in self.get_classes_by_name(n):
+                self.nodes[node.id] = node
+                yield node.id, label, node.properties
+
+        #for node in self.get_classes_by_name("biological_material"):
+        #   self.nodes[node.id] = node
+        #   yield node.id, "biological material", node.properties
 
         #for node in self.get_classes_by_name("observation_unit"):
         #    self.nodes[node.id] = node
@@ -88,13 +96,7 @@ class RDF_Adapter:
         #    self.nodes[node.id] = node
         #    yield node.id, "observedVariable", node.properties
 
-        #for n in ["trait", "sample"]:
-        #    label = n
-        #    if len(n.split(" ")) == 2:
-        #        label = n.split(" ")+n.split(" ")[1].capitalize()
-        #    for node in self.get_classes_by_name(n):
-        #        self.nodes[node.id] = node
-        #        yield node.id, label, node.properties
+
 
 
         #for subj, pred, obj in self.triples:
