@@ -21,6 +21,10 @@ class AdapterNodeProperties(Enum):
     hasMIAPPEVersion = "MIAPPE Version"
     hasAssociatedPublication = "associated publication"
     hasAbbreviation = "abbreviation"
+    hasStartDateTime = "start date time"
+    hasEndDateTime = "end date time"
+    hasCulturalPractices = "cultural practices"
+    hasObservationUnitDescription = "observation unit description"
 
 
 class AdapterEdgeType(Enum):

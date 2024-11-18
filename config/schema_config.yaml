@@ -25,13 +25,13 @@ study:
     preferred_id: study
     input_label: study
     properties:
-        hasName: str
-        hasDescription: str
-        hasStartDateTime: str
-        hasEndDateTime: str
-        hasIdentifier: str
-        hasCulturalPractices: str
-        hasObservationUnitDescription: str
+        name: str
+        description: str
+        start date time: str
+        end date time: str
+        identifier: str
+        cultural practices: str
+        observation unit description: str
 
 
 biological material:
@@ -44,106 +44,81 @@ biological material:
         hasMaterialIdentifier: str
         hasTaxonIdentifier: str
 
-#observation unit:
-#    is_a: information content entity
-#    preferred_id: ObsUnit
-#    represented_as: node
-#    input_label: observationUnit
-#    properties:
-#        hasInternalIdentifier: str
-#
-#
-#sample:
-#    is_a: material sample
-#    preferred_id: Sample
-#    represented_as: node
-#    input_label: sample
-#    properties:
-#        hasCollectionDate: str
-#        hasDescription: str
-#        hasExternalIdentifier: str
-#        hasInternalIdentifier: str
-#        hasPlantAnatomicalEntity: str
-#        hasPlantStructureDevelopmentStage: str
-#
-#
-#observed variable:
-#    is_a: study variable
-#    preferred_id: ObsVar
-#    represented_as: node
-#    input_label: observedVariable
-#    properties:
-#        hasExternalIdentifier: str
-#        hasInternalIdentifier: str
-#        hasName: str
-#
-#trait:
-#    is_a: phenotypic feature
-#    preferred_id: trait
-#    represented_as: node
-#    input_label: trait
-#    properties:
-#        hasExternalIdentifier: str
-#        hasName: str
-#
-#has trait:
+observation unit:
+    #is_a: information content entity
+    preferred_id: ObsUnit
+    represented_as: node
+    input_label: observation unit
+    properties:
+        hasInternalIdentifier: str
+
+
+sample:
+    #is_a: material sample
+    preferred_id: Sample
+    represented_as: node
+    input_label: sample
+    properties:
+        hasCollectionDate: str
+        hasDescription: str
+        hasExternalIdentifier: str
+        hasInternalIdentifier: str
+        hasPlantAnatomicalEntity: str
+        hasPlantStructureDevelopmentStage: str
+
+observed variable:
+    #is_a: study variable
+    preferred_id: ObsVar
+    represented_as: node
+    input_label: observedVariable
+    properties:
+        hasExternalIdentifier: str
+        hasInternalIdentifier: str
+        hasName: str
+
+trait:
+    #is_a: phenotypic feature
+    preferred_id: trait
+    represented_as: node
+    input_label: trait
+    properties:
+        hasExternalIdentifier: str
+        hasName: str
+
+
+#################
+#### edges ######
+#################
+
+#example with directed edge:
 #    is_a: association
 #    represented_as: edge
 #    input_label: hasTrait
 #    #source: dfjhsfkjhsdjk
 #    #target: hkjsdfhjsfh
-#
+
+
 has part:
-    is_a: entity
+    is_a: association
     represented_as: edge
     input_label: has part
 
 part of:
-    is_a: entity
+    is_a: association
     represented_as: edge
     input_label: part of
 
 has biological material:
     is_a: association
     represented_as: edge
-    input_label: biological material
+    input_label: has biological material
 
-#derives from:
-#    is_a: association
-#    represented_as: edge
-#    input_label: derivesFrom
-#
-#has variable:
-#    is_a: association
-#    represented_as: edge
-#    input_label: hasVariable
+derives from:
+    is_a: association
+    represented_as: edge
+    input_label: derivesFrom
 
-#has part:
-#    is_a: "has part"
-#    represented_as: edge
-#    preferred_id: http://purl.org/ppeo/PPEO.owl#hasPart
-#    input_label: hasPart
-#    properties:
-#        name: str
-#        category: str
-
-
-#protein:
-#    represented_as: node
-#    preferred_id: uniprot
-#    input_label: uniprot_protein
-
-#disease:
-#    represented_as: node
-#    preferred_id: doid
-#    input_label: do_disease
-
-#protein interaction:
-#    is_a: pairwise molecular interaction
-#    represented_as: edge
-#    input_label: protein_protein_interaction
-
-#protein to disease association:
-#    is_a: association
-#    represented_as: edge
-#    input_label: protein_disease_association
+has variable:
+    is_a: association
+    represented_as: edge
+    input_label: has variable
