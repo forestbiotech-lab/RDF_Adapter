@@ -14,11 +14,11 @@ investigation:
     #The label given in the node parameters
     input_label: investigation
     properties:
-        hasName: str
-        hasDescription: str
-        hasIdentifier: str
-        hasMIAPPEVersion: str
-        hasAssociatedPublication: str
+        name: str
+        description: str
+        identifier: str
+        MIAPPE version: str
+        associated publication: str
 
 study:
     represented_as: node
@@ -35,8 +35,7 @@ study:
 
 
 biological material:
-    is_a: biological entity
-    preferred_id: Biological Material
+    preferred_id: Bio Material
     represented_as: node
     input_label: biological material
     properties:
