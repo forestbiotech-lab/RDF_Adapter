@@ -5,6 +5,8 @@
 # is_a: to define the node name as something different from the name
 
 
+## TODO add dates
+## Add other classes
 
 investigation:
     ## Must be equal to the label in the class definition of the ontological term. No camelCase is allowed.

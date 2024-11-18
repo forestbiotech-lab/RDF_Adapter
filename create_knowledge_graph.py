@@ -26,7 +26,7 @@ bc = BioCypher()
 
 graph = Graph()
 
-graph.parse("MIAPPE_v1.1_TRACE-RICE.nt", format="nt")
+graph.parse("PPEO.nt", format="nt")
 
 
 
