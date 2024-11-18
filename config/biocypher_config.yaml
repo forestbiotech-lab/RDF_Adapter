@@ -11,15 +11,15 @@ biocypher:
   cache_directory: .cache
 
   head_ontology:
-    url: ./miappebiocypher.owl.ttl
+    url: ./biocypher-ppeo.owl.ttl
     root_node: entity
 
-  tail_ontologies:
-    ppeo:
-      merge_nodes: false
-      url: https://raw.githubusercontent.com/MIAPPE/MIAPPE-ontology/refs/heads/master/PPEO.owl
-      head_join_node: biological concept
-      tail_join_node: study
+#  tail_ontologies:
+#    ppeo:
+#      merge_nodes: false
+#      url: https://raw.githubusercontent.com/MIAPPE/MIAPPE-ontology/refs/heads/master/PPEO.owl
+#      head_join_node: technological concept
+#      tail_join_node: investigation
 
   # ontology Config
   #head_ontology:

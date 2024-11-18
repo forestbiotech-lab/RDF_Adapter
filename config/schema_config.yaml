@@ -8,9 +8,9 @@
 
 investigation:
     ## Must be equal to the label in the class definition of the ontological term. No camelCase is allowed.
-    is_a: technological concept
+    #is_a: technological concept
     represented_as: node
-    preferred_id: investigation
+    preferred_id: Investigation
     #The label given in the node parameters
     input_label: investigation
     properties:
@@ -18,9 +18,9 @@ investigation:
         hasDescription: str
         hasIdentifier: str
         hasMIAPPEVersion: str
+        hasAssociatedPublication: str
 
 study:
-    #is_a: biological concept
     represented_as: node
     preferred_id: study
     input_label: study
@@ -34,17 +34,17 @@ study:
         hasObservationUnitDescription: str
 
 
-#biological material:
-#    is_a: biological entity
-#    preferred_id: Biological Material
-#    represented_as: node
-#    input_label: biologicalMaterial
-#    properties:
-#            hasGenus: str
-#            hasSpecies: str
-#            hasMaterialIdentifier: str
-#            hasTaxonIdentifier: str
-#
+biological material:
+    is_a: biological entity
+    preferred_id: Biological Material
+    represented_as: node
+    input_label: biological material
+    properties:
+            hasGenus: str
+            hasSpecies: str
+            hasMaterialIdentifier: str
+            hasTaxonIdentifier: str
+
 #observation unit:
 #    is_a: information content entity
 #    preferred_id: ObsUnit
@@ -97,18 +97,18 @@ study:
 has part:
     is_a: entity
     represented_as: edge
-    input_label: hasPart
+    input_label: has part
 
 part of:
     is_a: entity
     represented_as: edge
-    input_label: partOf
+    input_label: part of
 
-#has biological material:
-#    is_a: association
-#    represented_as: edge
-#    input_label: hasBiologicalMaterial
-#
+has biological material:
+    is_a: association
+    represented_as: edge
+    input_label: biological material
+
 #derives from:
 #    is_a: association
 #    represented_as: edge
